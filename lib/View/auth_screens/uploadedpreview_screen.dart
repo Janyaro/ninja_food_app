@@ -24,7 +24,11 @@ class _UploadedpreviewScreenState extends State<UploadedpreviewScreen> {
                 const SizedBox(
                 width: 300,
                 child: Text('This data will be displayed in your account profile for security' , style: TextStyle(fontSize: 15),)),
-                const SizedBox(height: 10,),
+                const SizedBox(height: 140,),
+                Center(
+                  child:Icon(Icons.image)
+                )
+                
             ],
           ),
         ),
