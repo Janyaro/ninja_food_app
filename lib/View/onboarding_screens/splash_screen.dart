@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/View/onboarding_screens/onboardingtwo_screen.dart';
 import 'package:food_app/utils/textUtils.dart';
 
-class OnboardingoneScreen extends StatefulWidget {
-  const OnboardingoneScreen({super.key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
 
   @override
-  State<OnboardingoneScreen> createState() => _OnboardingoneScreenState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _OnboardingoneScreenState extends State<OnboardingoneScreen> {
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 2) , (){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> OnboardingtwoScreen()));
+    });
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(

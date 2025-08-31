@@ -5,30 +5,58 @@ class ReuseTextform extends StatelessWidget {
   final TextEditingController? controller;
   final String? prefix_image;
   final String? sufix_image;
-  const ReuseTextform(
-      {super.key, required this.title, required this.controller , this.prefix_image , this.sufix_image});
+  final Color? color; // Changed to nullable Color?
+  
+  const ReuseTextform({
+    super.key, 
+    required this.title, 
+    required this.controller, 
+    this.prefix_image, 
+    this.sufix_image, 
+    this.color, // Removed default value
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+        contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
         hintText: title,
-        fillColor: Colors.white,
-        filled: true,
-         prefixIcon: prefix_image != null ? Image.asset(prefix_image!) : null,
-        suffixIcon: sufix_image != null ? Image.asset(sufix_image!) : null,
+        fillColor: color ?? Colors.white, // Handle null case here
+        filled: color != null, // Only fill if color is provided
+        prefixIcon: prefix_image != null 
+            ? Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Image.asset(
+                  prefix_image!,
+                  width: 20,
+                  height: 20,
+                ),
+              )
+            : null,
+        suffixIcon: sufix_image != null 
+            ? Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Image.asset(
+                  sufix_image!,
+                  width: 20,
+                  height: 20,
+                ),
+              )
+            : null,
         border: OutlineInputBorder(
-            borderSide:BorderSide.none,
-            borderRadius: BorderRadius.circular(15)),
+          borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+          borderRadius: BorderRadius.circular(15),
+        ),
         focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(
-              color: Colors.grey,
-              width: .5
-            ),
-            borderRadius: BorderRadius.circular(15)),
+          borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey, width: 0.5),
+          borderRadius: BorderRadius.circular(15),
+        ),
       ),
     );
   }

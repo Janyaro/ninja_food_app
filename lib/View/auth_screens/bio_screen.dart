@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/View/auth_screens/paymentmethod_screen.dart';
 import 'package:food_app/utils/textUtils.dart';
 import 'package:food_app/widget/reuse_btn.dart';
 import 'package:food_app/widget/reuse_textform.dart';
 
-class SigninprocessOneScreen extends StatefulWidget {
-  const SigninprocessOneScreen({super.key});
+class BioScreen extends StatefulWidget {
+  final String username , email , password;
+  const BioScreen({super.key , required this.username , required this.email , required this.password});
 
   @override
-  State<SigninprocessOneScreen> createState() => _SigninprocessOneScreenState();
+  State<BioScreen> createState() => _BioScreenState();
 }
 
-class _SigninprocessOneScreenState extends State<SigninprocessOneScreen> {
+class _BioScreenState extends State<BioScreen> {
   final firstnameController = TextEditingController();
   final lastnameController = TextEditingController();
   final phoneController = TextEditingController(); 
@@ -33,7 +35,16 @@ class _SigninprocessOneScreenState extends State<SigninprocessOneScreen> {
             const SizedBox(height: 15,),
             ReuseTextform(title: 'Phone Number', controller: phoneController), 
             const  Spacer(),
-            ReuseBtn(title: 'Next' , ontap: (){},),
+            ReuseBtn(title: 'Next' , ontap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> PaymentmethodScreen(
+                username: widget.username, 
+                email: widget.email, 
+                password: widget.password, 
+                firstname: firstnameController.text, 
+                lastname: lastnameController.text, 
+                phoneNumber: phoneController.text
+                )));
+            },),
             SizedBox(height: 20,)
             ],
           ),

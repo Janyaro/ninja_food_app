@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/View/auth_screens/password_method_screen.dart';
 import 'package:food_app/utils/textUtils.dart';
 import 'package:food_app/widget/reuse_btn.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class EmailVerificationScreen extends StatelessWidget {
-  const EmailVerificationScreen({super.key});
+  final String verificationId;
+  const EmailVerificationScreen({super.key, required this.verificationId});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,10 @@ class EmailVerificationScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
             const Spacer(),
-            Center(child: ReuseBtn(title: 'Next' ,ontap:(){})),
+            Center(child: ReuseBtn(title: 'Next' ,ontap:(){
+              
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> PasswordMethodScreen())); 
+            })),
 const SizedBox(height: 60),
           ],
         ),

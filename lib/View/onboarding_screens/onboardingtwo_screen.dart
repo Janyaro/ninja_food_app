@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/View/onboarding_screens/onboardingthree_screen.dart';
 import 'package:food_app/widget/reuse_btn.dart';
 
 class OnboardingtwoScreen extends StatefulWidget {
@@ -37,7 +38,9 @@ class _OnboardingtwoScreenState extends State<OnboardingtwoScreen> {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 10),
-          child: ReuseBtn(title: 'Next',ontap: (){},),
+          child: ReuseBtn(title: 'Next',ontap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> OnboardingthreeScreen()));
+          },),
         )
       ],
     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/View/auth_screens/bio_screen.dart';
 import 'package:food_app/utils/textUtils.dart';
 import 'package:food_app/widget/reuse_btn.dart';
 import 'package:food_app/widget/reuse_textform.dart';
@@ -11,6 +12,7 @@ class SigninScreen extends StatefulWidget {
 }
 
 class _SigninScreenState extends State<SigninScreen> {
+  final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   @override
@@ -32,7 +34,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 ),
                   ReuseTextform(
                     prefix_image: 'images/Profile.png',
-                    title: 'username', controller: passwordController),
+                    title: 'username', controller: usernameController),
                
                const SizedBox(height: 10,),
               
@@ -61,7 +63,13 @@ class _SigninScreenState extends State<SigninScreen> {
                 ],
               ),
              const SizedBox(height: 20,),
-             ReuseBtn(title: 'Login' , ontap: (){},),
+             ReuseBtn(title: 'Login' , ontap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> BioScreen(
+                username:usernameController.text ,
+                email: emailController.text,
+                password: passwordController.text,
+              )));
+             },),
              const SizedBox(height: 10,),
               const  Text('Already have an account' , style: greenbodyText,),
             
