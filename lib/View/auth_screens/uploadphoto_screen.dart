@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:food_app/View/auth_screens/set_location_screen.dart';
+import 'package:food_app/View/root_screen.dart';
+import 'package:food_app/utils/textUtils.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:food_app/widget/reuse_btn.dart';
 
@@ -40,15 +42,17 @@ class _UploadphotoScreenState extends State<UploadphotoScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
+              
               const Text(
                 'Upload your photo profile',
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                style:pageheadingText
               ),
               const SizedBox(height: 10),
               const SizedBox(
@@ -75,45 +79,73 @@ class _UploadphotoScreenState extends State<UploadphotoScreen> {
               ),
 
               const SizedBox(height: 30),
-
-              // gallery button
-              ElevatedButton.icon(
-                onPressed: _pickFromGallery,
-                icon: const Icon(Icons.photo),
-                label: const Text("Pick from Gallery"),
+               
+              Center(
+                child: InkWell(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                      boxShadow:[
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 8,
+                          offset:const Offset(0, 3)
+                        )
+                      ]
+                    ),
+                    child: Image.asset('images/Gallery.png' , height: 80,),
+                  ),
+                ),
               ),
-
-              const SizedBox(height: 10),
-
-              // camera button
-              ElevatedButton.icon(
-                onPressed: _pickFromCamera,
-                icon: const Icon(Icons.camera_alt),
-                label: const Text("Take a Photo"),
+              SizedBox(height: 10,),
+              Center(
+                child: InkWell(
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                      boxShadow:[
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 8,
+                          offset:const Offset(0, 3)
+                        )
+                      ]
+                    ),
+                    child: Image.asset('images/Camera.png' , height: 80,),
+                  ),
+                ),
               ),
-
               const Spacer(),
 
-              ReuseBtn(
-                title: 'Next',
-                ontap: () {
-                  if (_selectedImage == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Please select an image")),
-                    );
-                    return;
-                  }
-                  // 👉 Pass image path forward to next screen
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SetLocationScreen(
-                    image: _selectedImage!.path ?? '', 
-                    username: widget.username, 
-                    email: widget.email, 
-                    password: widget.password, 
-                    firstname: widget.firstname, 
-                    lastname: widget.lastname, 
-                    phoneNumber: widget.phoneNumber, 
-                    paymentMethod: widget.paymentMethod)));
-                },
+              Center(
+                child: ReuseBtn(
+                  title: 'Next',
+                  ontap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> RootScreen()));
+                    // if (_selectedImage == null) {
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     const SnackBar(content: Text("Please select an image")),
+                    //   );
+                    //   return;
+                    // }
+                    // // 👉 Pass image path forward to next screen
+                    // Navigator.push(context, MaterialPageRoute(builder: (context)=> SetLocationScreen(
+                    //   image: _selectedImage!.path ?? '', 
+                    //   username: widget.username, 
+                    //   email: widget.email, 
+                    //   password: widget.password, 
+                    //   firstname: widget.firstname, 
+                    //   lastname: widget.lastname, 
+                    //   phoneNumber: widget.phoneNumber, 
+                    //   paymentMethod: widget.paymentMethod)));
+                  },
+                ),
               ),
               const SizedBox(height: 30),
             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_app/View/auth_screens/emailverfication_screen.dart';
+import 'package:food_app/View/auth_screens/signin_screens.dart';
 import 'package:food_app/utils/textUtils.dart';
 import 'package:food_app/widget/reuse_btn.dart';
 import 'package:food_app/widget/reuse_textform.dart';
@@ -99,8 +100,12 @@ class _SignupScreenState extends State<SignupScreen> {
               },
               child: const  Text('Forget your Password?' , style: greenbodyText,)),
            const SizedBox(height: 20,),
-           ReuseBtn(title: 'Login' , ontap: (){},)
-      
+           ReuseBtn(title: 'Login' , ontap: (){},),
+            const SizedBox(height: 10,),
+               TextButton(child:const Text( "don't have an account" , style: greenbodyText,) , onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const SigninScreen()));
+                }),
+            
             ],
           ),
         ),

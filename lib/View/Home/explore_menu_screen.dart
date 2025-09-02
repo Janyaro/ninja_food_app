@@ -18,6 +18,7 @@ class _ExploreMenuScreenState extends State<ExploreMenuScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(

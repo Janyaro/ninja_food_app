@@ -34,7 +34,7 @@ class _PaymentmethodScreenState extends State<PaymentmethodScreen> {
                   setState(() {
                     paymentMethod = 'paypal';
                   });
-                 }, payment_image: 'images/paypal_logo.png'),
+                 }, payment_image: 'images/Paypal.png'),
                 const SizedBox(height: 20,),
                  ReusePaymentBtn(ontap: (){
                   setState(() {

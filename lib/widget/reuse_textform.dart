@@ -21,7 +21,7 @@ class ReuseTextform extends StatelessWidget {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+        contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
         hintText: title,
         fillColor: color ?? Colors.white, // Handle null case here
         filled: color != null, // Only fill if color is provided

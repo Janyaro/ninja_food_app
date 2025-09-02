@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/View/Home/explore_menu_screen.dart';
+import 'package:food_app/View/Home/explore_resturant_screen.dart';
 import 'package:food_app/utils/textUtils.dart';
 import 'package:food_app/widget/carousal_items.dart';
 import 'package:food_app/widget/reuse_btn.dart';
@@ -27,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
                       width: 250,
@@ -103,7 +106,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     const Text('Nearest Restaurant', style: secondrybodyText),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=> ExploreRestaurantScreen()));
+                      },
                       child: const Text(
                         'view more',
                         style: TextStyle(fontSize: 13, color: Colors.orange),
@@ -133,7 +138,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     const Text('Popular Menu', style: secondrybodyText),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ExploreMenuScreen()));
+                      },
                       child: const Text(
                         'view more',
                         style: TextStyle(fontSize: 13, color: Colors.orange),

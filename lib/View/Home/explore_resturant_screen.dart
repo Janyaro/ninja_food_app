@@ -17,6 +17,7 @@ class _ExploreRestaurantScreenState extends State<ExploreRestaurantScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
