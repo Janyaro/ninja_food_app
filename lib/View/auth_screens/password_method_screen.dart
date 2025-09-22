@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_app/Services/auth_service.dart';
-import 'package:food_app/View/auth_screens/emailverfication_screen.dart';
 import 'package:food_app/utils/textUtils.dart';
 import 'package:food_app/widget/reuse_btn.dart';
 
@@ -13,13 +11,13 @@ class PasswordMethodScreen extends StatefulWidget {
 }
 
 class _PasswordMethodScreenState extends State<PasswordMethodScreen> {
-final authservice = AuthService();
-  String phoneNumber = "+6282045****"; // ← You should load this from Firestore user profile
-  String email = "user@gmail.com";     // ← Also load this from Firestore
+  final authservice = AuthService();
+
+  // You should load these from Firestore or pass via constructor, here hardcoded for example
+  String phoneNumber = "03082372745";
+  String email = "waseemjanyaro@gmail.com";
 
   String selectedMethod = "";
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,6 @@ final authservice = AuthService();
               ),
               const SizedBox(height: 20),
 
-              // 📱 Phone Method
               ListTile(
                 onTap: () {
                   setState(() {
@@ -53,7 +50,6 @@ final authservice = AuthService();
               ),
               const SizedBox(height: 10),
 
-              // 📧 Email Method
               ListTile(
                 onTap: () {
                   setState(() {
@@ -73,9 +69,9 @@ final authservice = AuthService();
                   title: 'Next',
                   ontap: () {
                     if (selectedMethod == "email") {
-                     authservice.sendEmailReset(context, email);
+                      authservice.sendEmailReset(context, email);
                     } else if (selectedMethod == "phone") {
-                      authservice.sendPhoneOtp(context , phoneNumber);
+                      authservice.sendPhoneOtp(context, phoneNumber);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Please select a method")),

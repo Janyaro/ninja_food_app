@@ -19,10 +19,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
     child: CircleAvatar(
       radius: 18,
       backgroundColor: Colors.orange[200],
-      child:const Icon(
-        Icons.arrow_back_ios,
-        color: Colors.white,
-        size: 18,
+      child:InkWell(
+        onTap: (){
+          Navigator.pop(context);
+        },
+        child: const Icon(
+          Icons.arrow_back_ios,
+          color: Colors.white,
+          size: 18,
+        ),
       ),
     ),
   ),
@@ -34,13 +39,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               
-              Text('Notification' , style: pageheadingText,),
-              SizedBox(height: 10,),
+             const Text('Notification' , style: pageheadingText,),
+             const SizedBox(height: 10,),
               Card(
                 child: ListTile( 
                 leading: Image.asset('images/check_image.png'),
-                title: Text('Your order has been taken by the driver',style: TextStyle(fontWeight: FontWeight.bold),),
-                subtitle: Text('Recently' , style: TextStyle(color: Colors.grey),),
+                title:const Text('Your order has been taken by the driver', style: TextStyle(fontWeight: FontWeight.w500),),
+                subtitle:const Text('Recently' , style: TextStyle(color: Colors.grey),),
                 ),
               )
             ],

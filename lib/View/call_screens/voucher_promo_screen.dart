@@ -14,6 +14,7 @@ class _VoucherPromoScreenState extends State<VoucherPromoScreen> {
   Widget build(BuildContext context) {
     return  SafeArea(
       child:  Scaffold(
+        appBar: AppBar(),
         body: Padding(
           padding:const EdgeInsets.symmetric(horizontal: 20),
           child: Column(

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/Provider/navigation_provider.dart';
+import 'package:food_app/Provider/theme_provider.dart';
 import 'package:food_app/View/Home/home_screen.dart';
 import 'package:food_app/View/Profile/profile_screen.dart';
 import 'package:food_app/View/call_screens/user_screen.dart';
 import 'package:food_app/View/order_screens/orderdetail_screen.dart';
+import 'package:provider/provider.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});
@@ -23,15 +26,25 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final thememode = Provider.of<ThemeProvider>(context);
+    final navigator = Provider.of<NavigationProvider>(context);
     return Scaffold(
-      body: _screens[_selectedIndex],
+    
+      appBar: AppBar(
+            automaticallyImplyLeading: false,
+            actions: [IconButton(onPressed: (){
+            
+        thememode.toggleTheme();
+      }, icon: thememode.isDarkMode ? const Icon(Icons.brightness_5_outlined) : const Icon(Icons.dark_mode)) ],),
+      body: _screens[navigator.selectedIndex],
 
       /// Custom Bottom Nav
       bottomNavigationBar: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         margin: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color:thememode.isDarkMode?  Color.fromRGBO(37, 37, 37, 1) : Colors.white,
           borderRadius: BorderRadius.circular(25),
           boxShadow: [
             BoxShadow(
@@ -63,7 +76,7 @@ class _RootScreenState extends State<RootScreen> {
               index: 2,
               icon: Icons.shopping_cart,
               label: "Cart",
-              badgeCount: 7,
+
             ),
 
             /// Messages with badge
@@ -71,7 +84,7 @@ class _RootScreenState extends State<RootScreen> {
               index: 3,
               icon: Icons.chat,
               label: "Chat",
-              badgeCount: 2,
+              
             ),
           ],
         ),
@@ -84,12 +97,13 @@ class _RootScreenState extends State<RootScreen> {
     required int index,
     required IconData icon,
     required String label,
-    int badgeCount = 0,
+    
   }) {
-    bool isSelected = _selectedIndex == index;
+     final navigationProvider = Provider.of<NavigationProvider>(context);
+    bool isSelected = navigationProvider.selectedIndex == index;
 
     return GestureDetector(
-      onTap: () => setState(() => _selectedIndex = index),
+      onTap: () => navigationProvider.changeIndex(index),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: isSelected
@@ -110,28 +124,7 @@ class _RootScreenState extends State<RootScreen> {
                 ),
 
                 /// Badge
-                if (badgeCount > 0)
-                  Positioned(
-                    right: -6,
-                    top: -4,
-                    child: Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-                      constraints: const BoxConstraints(minWidth: 18, minHeight: 18),
-                      child: Text(
-                        badgeCount.toString(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
+                
               ],
             ),
 

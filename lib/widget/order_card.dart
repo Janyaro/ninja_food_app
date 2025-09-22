@@ -10,7 +10,7 @@ class OrderCard extends StatelessWidget {
     
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -18,8 +18,8 @@ class OrderCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(
                 'images/Frame.png',
-                width: 80,
-                height: 80,
+                width: 60,
+                height: 60,
                 fit: BoxFit.cover,
               ),
             ),
@@ -28,10 +28,10 @@ class OrderCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:  [
-                  Text('Spacy fresh crab', style: secondrybodyText),
+                  Text('Spacy fresh crab', style: secondrybodyText , maxLines: 1,),
                   Text(
                     'Spacy fresh crab',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                   Text('\$54', style: greenbodyText),
                 ],
@@ -41,10 +41,10 @@ class OrderCard extends StatelessWidget {
               child: ReuseBtn(
                 title: 'Process',
                 ontap: () {},
-                width: 100,
-                height: 40,
+                width: 80,
+                height: 30,
                 radius: 50,
-                fontsize: 18,
+                fontsize: 11,
               ),
             ),
           ],

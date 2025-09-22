@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace "com.example.food_app"
-    compileSdk 35
+    compileSdk 36
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -24,7 +24,7 @@ android {
 
     defaultConfig {
     applicationId "com.example.food_app"
-    minSdkVersion 23
+    minSdkVersion flutter.minSdkVersion
     targetSdkVersion 35
     versionCode 1
     versionName "1.0"

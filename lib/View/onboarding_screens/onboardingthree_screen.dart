@@ -34,14 +34,14 @@ class _OnboardingthreeScreenState extends State<OnboardingthreeScreen> {
           child: Text(
             textAlign: TextAlign.center,
             'Enjoy a fast and smooth food delivery at your doorstep',
+            style: TextStyle(color: Colors.grey),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: ReuseBtn(title: 'Next',ontap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> SignupScreen()));
-          },),
-        )
+        Spacer(),
+        ReuseBtn(title: 'Next',ontap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> SignupScreen()));
+        },),
+        SizedBox(height: 30,)
       ],
     ),
     );

@@ -37,7 +37,7 @@ class ReuseMenucard extends StatelessWidget {
                 style:const TextStyle(fontSize: 18, fontWeight: FontWeight.bold  ),
               ),
               const SizedBox(height: 4),
-              Text(description , style: TextStyle(color: Colors.grey),),
+              Text(description , style: TextStyle(color: Colors.grey) , maxLines: 1 ,),
             ],
           ),
         ),

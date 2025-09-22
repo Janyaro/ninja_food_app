@@ -16,15 +16,15 @@ class ReuseBtn extends StatelessWidget {
     return  InkWell(
       onTap: ontap,
       child: Container(   
-            width: width ?? 157,
-            height: height ?? 57  ,
+            width: width ?? 150,
+            height: height ?? 55  ,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(radius ?? 15),
               color: colors ??  Colors.green.shade600
             ),
             child: Center(child: Text(title , style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize:fontsize ?? 22,
+              fontWeight: FontWeight.w500,
+              fontSize:fontsize ?? 18,
               color: colors != null ? Colors.green.shade600 : Colors.white
             ),),),
           ),

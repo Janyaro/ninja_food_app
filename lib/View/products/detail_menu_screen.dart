@@ -1,37 +1,54 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/Models/menu_item.dart';
+import 'package:food_app/Provider/theme_provider.dart';
+import 'package:food_app/Services/cart_service.dart';
 import 'package:food_app/widget/reuse_btn.dart';
+import 'package:provider/provider.dart';
 
 class DetailMenuScreen extends StatelessWidget {
-  const DetailMenuScreen({super.key});
+  final MenuItem menuItem;
+  const DetailMenuScreen({super.key, required this.menuItem});
 
   @override
   Widget build(BuildContext context) {
+    final thememode = Provider.of<ThemeProvider>(context);
     final size = MediaQuery.of(context).size;
-
+    // ignore: non_constant_identifier_names
+    final cart = CartService();
     return Scaffold(
       body: Stack(
         children: [
-          /// Background Image (full screen)
           SizedBox(
-            
             width: size.width,
-            child: Image.asset(
-              "images/icecream_image.jpg",
-              fit: BoxFit.cover,
-            ),
+            child: menuItem.imageUrl.isNotEmpty
+                ? Image.network(
+                    menuItem.imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.network(
+                      menuItem.imageUrl, // Fallback image
+                        fit: BoxFit.cover,
+                      );
+                    },
+                  )
+                : Image.asset(
+                    "images/icecream_image.jpg", // Default image
+                    fit: BoxFit.cover,
+                  ),
           ),
 
           /// Scrollable Body Content
           DraggableScrollableSheet(
             initialChildSize: 0.65, // starts from 65% of screen height
-            minChildSize: 0.65,     // minimum height
-            maxChildSize: 0.95,     // maximum height when pulled up
+            minChildSize: 0.65, // minimum height
+            maxChildSize: 0.95, // maximum height when pulled up
             builder: (context, scrollController) {
               return Container(
                 padding: const EdgeInsets.all(16),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
+                decoration:  BoxDecoration(
+                  color:thememode.isDarkMode ? const Color.fromARGB(221, 46, 45, 45)   :Colors.white,
+                  borderRadius:const BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
                   ),
@@ -54,9 +71,11 @@ class DetailMenuScreen extends StatelessWidget {
                               color: Colors.green.shade100,
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: const Text(
-                              "Popular",
-                              style: TextStyle(
+                            child: Text(
+                              menuItem.category.isNotEmpty
+                                  ? menuItem.category
+                                  : "Popular", // Use category or default
+                              style: const TextStyle(
                                 color: Colors.green,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -67,57 +86,70 @@ class DetailMenuScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
 
-                      // Restaurant name
-                      const Text(
-                        "Wijie Bar and Resto",
-                        style: TextStyle(
+                      // Restaurant name - NOW USING ACTUAL MENU ITEM NAME
+                      Text(
+                        menuItem.name,
+                        style: const TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 6),
+
+                      // Price display - ADDED THIS SECTION
+                      Text(
+                        "\$${menuItem.price.toStringAsFixed(2)}",
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green),
                       ),
                       const SizedBox(height: 6),
 
                       // Location + Rating
                       const Row(
                         children: [
-                          Icon(Icons.location_on,
-                              size: 18, color: Colors.green),
+                          Icon(Icons.location_on, size: 18, color: Colors.green),
                           SizedBox(width: 4),
                           Text("19 Km  •  "),
-                          Icon(Icons.star,
-                              size: 18, color: Colors.orange),
+                          Icon(Icons.star, size: 18, color: Colors.orange),
                           SizedBox(width: 4),
                           Text("4.8 Rating"),
                         ],
                       ),
                       const SizedBox(height: 12),
 
-                      // Description
-                   const Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: const [
-    Text(
-      "Nulla occaecat velit laborum exercitation ullamco. Elit labore eu aute elit nostrud culpa velit excepteur deserunt sunt. "
-      "Velit non est cillum consequat cupidatat ex Lorem laboris labore aliqua ad duis eu laborum.",
-      style: TextStyle(color: Colors.black54, height: 1.5),
-    ),
-    SizedBox(height: 12),
+                      // Description - NOW USING ACTUAL MENU ITEM DESCRIPTION
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
 
-    // Ingredients list
-    Text("Strawberry", style: TextStyle(fontWeight: FontWeight.bold)),
-    Text("Cream", style: TextStyle(fontWeight: FontWeight.bold)),
-    Text("Wheat", style: TextStyle(fontWeight: FontWeight.bold)),
+                               "No description available.", // Fallback text
+                            style:  TextStyle(
+                                color:thememode.isDarkMode ?Colors.white:const Color.fromARGB(221, 46, 45, 45)   , height: 1.5),
+                          ),
+                          SizedBox(height: 12),
 
-    SizedBox(height: 12),
+                          // Ingredients list - You might want to add this to your MenuItem model
+                          const Text("Ingredients:",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          const Text("Strawberry",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          const Text("Cream",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          const Text("Wheat",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
 
-    Text(
-      "Nulla occaecat velit laborum exercitation ullamco. Elit labore eu aute elit nostrud culpa velit excepteur deserunt sunt.",
-      style: TextStyle(color: Colors.black54, height: 1.5),
-    ),
-  ],
-),
+                          const SizedBox(height: 12),
+
+                           Text(
+                            "Nulla occaecat velit laborum exercitation ullamco. Elit labore eu aute elit nostrud culpa velit excepteur deserunt sunt.",
+                            style: TextStyle(color:thememode.isDarkMode ?Colors.white:const Color.fromARGB(221, 46, 45, 45)  , height: 1.5),
+                          ),
+                        ],
+                      ),
                       const SizedBox(height: 20),
 
                       // Popular Menu title
-                     
                       const SizedBox(height: 20),
 
                       // Testimonials
@@ -128,31 +160,32 @@ class DetailMenuScreen extends StatelessWidget {
 
                       // Single Review
                       ListView.builder(
-                        shrinkWrap: true,
-                        physics:const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context,index){
-                        return  Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16)),
-                        child: const ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: AssetImage("images/Frame.png"),
-                          ),
-                          title: Text("Dianne Russell"),
-                          subtitle: Text(
-                              "It’s great. So delicious! You must try it."),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.star, color: Colors.green),
-                              SizedBox(width: 4),
-                              Text("5"),
-                            ],
-                          ),
-                        ),
-                      );
-                      }),
-                     
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: 3, // Show 3 reviews
+                          itemBuilder: (context, index) {
+                            return Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16)),
+                              child: const ListTile(
+                                leading: CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage("images/Frame.png"),
+                                ),
+                                title: Text("Dianne Russell"),
+                                subtitle: Text(
+                                    "It's great. So delicious! You must try it."),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(Icons.star, color: Colors.green),
+                                    SizedBox(width: 4),
+                                    Text("5"),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
                       const SizedBox(height: 50), // bottom padding
                     ],
                   ),
@@ -175,10 +208,18 @@ class DetailMenuScreen extends StatelessWidget {
           ),
         ],
       ),
-    bottomNavigationBar: Padding(padding: EdgeInsets.only(bottom: 30 , left: 10 , right: 10) ,
-    child: ReuseBtn(title: 'Add to Card', ontap: (){} , width: double.infinity,fontsize: 18,),
-    ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 30, left: 10, right: 10),
+        child: ReuseBtn(
+          title: 'Add to Cart \$${menuItem.price.toStringAsFixed(2)}', // Show price in button
+          ontap: () {
+          cart.addCartItem(menuItem);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Item add into cart')));
+          },
+          width: double.infinity,
+          fontsize: 18,
+        ),
+      ),
     );
-
   }
 }

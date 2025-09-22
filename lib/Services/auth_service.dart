@@ -5,11 +5,19 @@ import 'package:food_app/Models/user_model.dart';
 import 'package:food_app/View/Home/home_screen.dart';
 import 'package:food_app/View/auth_screens/emailverfication_screen.dart';
 import 'package:food_app/View/auth_screens/password_screen.dart';
+import 'package:food_app/View/auth_screens/signup_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final auth = FirebaseAuth.instance;
   final userCollection = FirebaseFirestore.instance.collection("users");
   String smsCode = "";
+  // log out user from the app 
+  Future<void> logout (BuildContext context)async{
+   await auth.signOut().then((val)=>{
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> SignupScreen()))
+   });
+  }
 
   // login user function
   Future<void> LoginUser(String email , String password , BuildContext context)async{
@@ -112,7 +120,7 @@ Future<void> sendEmailReset(BuildContext context ,String email , ) async {
 
 
 
-  Future<void> _verifyOtp( BuildContext context,String verificationId ) async {
+  Future<void> verifyOtp( BuildContext context,String verificationId ) async {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId,
@@ -131,5 +139,55 @@ Future<void> sendEmailReset(BuildContext context ,String email , ) async {
       );
     }
   }
+// Google Sign-In with Firestore user saving
+Future<User?> signInWithGoogle(BuildContext context) async {
+  try {
+    // Start Google Sign-In
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) return null; // user cancelled
+
+    // Get auth details
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
+    // Create Firebase credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    // Sign in to Firebase
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    User? user = userCredential.user;
+
+    if (user != null) {
+      // Check if user exists in Firestore
+      DocumentSnapshot userDoc =
+          await userCollection.doc(user.uid).get();
+
+      if (!userDoc.exists) {
+        // Save new user in Firestore
+        await userCollection.doc(user.uid).set({
+          "uid": user.uid,
+          "name": user.displayName ?? "",
+          "email": user.email ?? "",
+          "avatarUrl": user.photoURL ?? "",
+          "phone": user.phoneNumber ?? "",
+          "createdAt": FieldValue.serverTimestamp(),
+        });
+      }
+    }
+
+    return user; // Firebase user object
+  } catch (e) {
+    print("Google Sign-In failed: $e");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Google Sign-In failed")),
+    );
+    return null;
+  }
+}
 
 }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/Provider/theme_provider.dart';
+import 'package:food_app/View/root_screen.dart';
 import 'package:food_app/utils/textUtils.dart';
 import 'package:food_app/widget/order_card.dart';
 import 'package:food_app/widget/reuse_btn.dart';
 import 'package:food_app/widget/reuse_textform.dart';
+import 'package:provider/provider.dart';
 
 class YourOrderScreen extends StatefulWidget {
   const YourOrderScreen({super.key});
@@ -16,6 +19,7 @@ class _YourOrderScreenState extends State<YourOrderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final thememode = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -44,7 +48,7 @@ class _YourOrderScreenState extends State<YourOrderScreen> {
                   child: ReuseTextform(
                     title: 'What you want to Order',
                     controller: searchController,
-                    color:const Color.fromRGBO(255, 228, 197, 0.992),
+                    color:thememode.isDarkMode ? const Color.fromARGB(221, 46, 45, 45) : const Color.fromRGBO(255, 228, 197, 0.992),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -60,9 +64,14 @@ class _YourOrderScreenState extends State<YourOrderScreen> {
                 },
               ),
             ),
+            
             ReuseBtn(
               title: 'Check Out',
-              ontap: () {},
+              ontap: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Thank your order has been arrived into two days')));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => RootScreen()));
+              },
               width: double.infinity,
             ),
             const SizedBox(height: 30),

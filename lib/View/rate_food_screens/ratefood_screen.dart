@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/View/call_screens/voucher_promo_screen.dart';
+import 'package:food_app/View/rate_food_screens/rateresturant_screen.dart';
+import 'package:food_app/View/root_screen.dart';
 import 'package:food_app/utils/textUtils.dart';
 import 'package:food_app/widget/reuse_btn.dart';
 import 'package:food_app/widget/reuse_textform.dart';
@@ -65,8 +68,12 @@ class _RatefoodScreenState extends State<RatefoodScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ReuseBtn(title: 'Submit', ontap: (){} ),
-            ReuseBtn(title: 'Skip', ontap: (){} ,colors: Colors.white, ),
+              ReuseBtn(title: 'Submit', ontap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> RateResturantScreen()));
+              } ),
+            ReuseBtn(title: 'Skip', ontap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> RootScreen()));
+            } ,colors: Colors.white, ),
             ],
           ),
           const SizedBox(height: 30,)

@@ -1,19 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/View/auth_screens/password_method_screen.dart';
+import 'package:food_app/Services/auth_service.dart';
 import 'package:food_app/utils/textUtils.dart';
 import 'package:food_app/widget/reuse_btn.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class EmailVerificationScreen extends StatelessWidget {
+class EmailVerificationScreen extends StatefulWidget {
   final String verificationId;
   const EmailVerificationScreen({super.key, required this.verificationId});
 
   @override
+  State<EmailVerificationScreen> createState() => _EmailVerificationScreenState();
+}
+
+class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
+  final authService = AuthService();
+  String otpCode = "";
+  bool isLoading = false;
+
+  void verifyOtp() async {
+    if (otpCode.length < 4) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter complete OTP")),
+      );
+      return;
+    }
+    setState(() {
+      isLoading = true;
+      authService.smsCode = otpCode; // Set smsCode to AuthService for verification
+    });
+
+    await authService.verifyOtp(context, widget.verificationId);
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("Email Verification"),
+        title: const Text("OTP Verification"),
         centerTitle: true,
         elevation: 0,
       ),
@@ -22,35 +49,43 @@ class EmailVerificationScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 30),
             const Text(
               "Enter 4 digit verification code",
               style: pageheadingText,
             ),
             const SizedBox(height: 10),
-           const SizedBox(width: 280,
-            child: Text(
-              textAlign: TextAlign.start,
-            'Code send to +6282045**** . This code will expired in 01:30'),),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              width: 280,
+              child: Text(
+                textAlign: TextAlign.start,
+                'Code sent to +6282045****. This code will expire in 01:30',
+              ),
+            ),
+            const SizedBox(height: 20),
 
-            // PIN Input
             PinCodeTextField(
               appContext: context,
               length: 4,
               keyboardType: TextInputType.number,
-              onChanged: (value) {},
-              onCompleted: (code) {
-                print("Entered Code: $code");
+              onChanged: (value) {
+                otpCode = value;
               },
             ),
 
             const SizedBox(height: 20),
             const Spacer(),
-            Center(child: ReuseBtn(title: 'Next' ,ontap:(){
-              
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> PasswordMethodScreen())); 
-            })),
-const SizedBox(height: 60),
+
+            Center(
+              child: isLoading
+                  ? const CircularProgressIndicator()
+                  : ReuseBtn(
+                      title: 'Verify',
+                      ontap: verifyOtp,
+                    ),
+            ),
+
+            const SizedBox(height: 60),
           ],
         ),
       ),

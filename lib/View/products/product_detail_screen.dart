@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/View/Home/explore_resturant_screen.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+  final Map<String, dynamic> productData;
+  const ProductDetailsScreen({super.key, required this.productData});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +16,8 @@ class ProductDetailsScreen extends StatelessWidget {
           SizedBox(
 
             width: size.width,
-            child: Image.asset(
-              "images/detail_image.png",
+            child: Image.network(
+              productData['bannerUrl'],
               fit: BoxFit.cover,
             ),
           ),
@@ -67,24 +69,24 @@ class ProductDetailsScreen extends StatelessWidget {
                       const SizedBox(height: 10),
 
                       // Restaurant name
-                      const Text(
-                        "Wijie Bar and Resto",
+                       Text(
+                        productData['name'],
                         style: TextStyle(
                             fontSize: 22, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 6),
 
                       // Location + Rating
-                      const Row(
+                       Row(
                         children: [
-                          Icon(Icons.location_on,
+                         const Icon(Icons.location_on,
                               size: 18, color: Colors.green),
-                          SizedBox(width: 4),
-                          Text("19 Km  •  "),
-                          Icon(Icons.star,
+                         const SizedBox(width: 4),
+                          Text("${productData['etaMins']} Km"),
+                          const Icon(Icons.star,
                               size: 18, color: Colors.orange),
-                          SizedBox(width: 4),
-                          Text("4.8 Rating"),
+                         const SizedBox(width: 4),
+                          Text("${productData['rating']}rating"),
                         ],
                       ),
                       const SizedBox(height: 12),
@@ -100,13 +102,15 @@ class ProductDetailsScreen extends StatelessWidget {
                       // Popular Menu title
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text("Popular Menu",
+                        children:  [
+                         const Text("Popular Menu",
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold)),
-                          Text("View All",
-                              style: TextStyle(color: Colors.orange)),
+                          TextButton(onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const ExploreRestaurantScreen()));
+                          } , child:const Text("View All",
+                              style: TextStyle(color: Colors.orange))),
                         ],
                       ),
                       const SizedBox(height: 12),

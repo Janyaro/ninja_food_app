@@ -42,10 +42,12 @@ class _ExploreRestaurantScreenState extends State<ExploreRestaurantScreen> {
               Row(
                 children: [
                   Expanded(
-                    child: TextField(
+                    child: TextFormField(
+                  
                       controller: searchController,
                       onChanged: (_) => setState(() {}),
                       decoration: InputDecoration(
+                        contentPadding:const EdgeInsets.all(10),
                         hintText: "What do you want to order?",
                         fillColor: const Color.fromARGB(255, 253, 228, 197),
                         filled: true,

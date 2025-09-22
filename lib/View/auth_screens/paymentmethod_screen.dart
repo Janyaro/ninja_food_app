@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/Provider/navigation_provider.dart';
+import 'package:food_app/Provider/payment_provider.dart';
 import 'package:food_app/View/auth_screens/uploadphoto_screen.dart';
 import 'package:food_app/utils/textUtils.dart';
 import 'package:food_app/widget/Reuse_payment_btn.dart';
 import 'package:food_app/widget/reuse_btn.dart';
+import 'package:provider/provider.dart';
 
 class PaymentmethodScreen extends StatefulWidget {
   final String username , email , password , firstname , lastname , phoneNumber; 
@@ -13,9 +16,10 @@ class PaymentmethodScreen extends StatefulWidget {
 }
 
 class _PaymentmethodScreenState extends State<PaymentmethodScreen> {
- String paymentMethod = '' ;
+ 
   @override
   Widget build(BuildContext context) {
+    final payment = Provider.of<PaymentProvider>(context);
     return   SafeArea(
       child:  Scaffold(
         body: Padding(
@@ -26,37 +30,36 @@ class _PaymentmethodScreenState extends State<PaymentmethodScreen> {
              const SizedBox(height: 25,),
              const Text('Payment Method' , style: pageheadingText,),
              const SizedBox(height: 15,),
-             const SizedBox(
-                width: 300,
-                child: Text('This data will be displayed in your account profile for security' , style: TextStyle(fontSize: 15),)),
+             const Text('This data will be displayed in your account profile for security' , style: TextStyle(fontSize: 14 , color: Colors.grey),),
                const SizedBox(height: 20,),
                  ReusePaymentBtn(ontap: (){
-                  setState(() {
-                    paymentMethod = 'paypal';
-                  });
+                  payment.setPaymentMethod('Paypal');
                  }, payment_image: 'images/Paypal.png'),
                 const SizedBox(height: 20,),
                  ReusePaymentBtn(ontap: (){
-                  setState(() {
-                    paymentMethod = 'paypal';
-                  });
+                  payment.setPaymentMethod('Visa');
                  } , payment_image: 'images/visa_logo.png'),
                 const SizedBox(height: 20,),
                 ReusePaymentBtn(ontap: (){
-                  setState(() {
-                    paymentMethod = 'paypal';
-                  });
+                  payment.setPaymentMethod('Payoneer');
                 },payment_image: 'images/Payoneer_logo.png'),
                 const Spacer(),
                 Center(child: ReuseBtn(title: 'Next', ontap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> UploadphotoScreen(
+                  final paymentProvider = Provider.of<NavigationProvider>(context, listen: false);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ChangeNotifierProvider.value(
+          value: NavigationProvider(),
+          child:                  UploadphotoScreen(
                     username: widget.username, 
                     email: widget.email, 
                     password: widget.password, 
                     firstname: widget.firstname, 
                     lastname: widget.lastname, 
                     phoneNumber: widget.phoneNumber, 
-                    paymentMethod: paymentMethod)));
+                    paymentMethod: payment.paymentMethod))));
 
                 })),
                 const SizedBox(height: 30,)

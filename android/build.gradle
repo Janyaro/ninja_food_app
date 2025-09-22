@@ -1,7 +1,7 @@
 // Top-level build.gradle
 
 buildscript {
-    ext.kotlin_version = '1.9.10'  // Add this line
+    ext.kotlin_version = '2.1.0'  // Add this line
     repositories {
         google()
         mavenCentral()

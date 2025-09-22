@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/View/Home/home_screen.dart';
+import 'package:food_app/View/call_screens/voucher_promo_screen.dart';
+import 'package:food_app/View/root_screen.dart';
 import 'package:food_app/utils/textUtils.dart';
 import 'package:food_app/widget/reuse_btn.dart';
 import 'package:food_app/widget/reuse_textform.dart';
@@ -34,8 +37,8 @@ class _RateResturantScreenState extends State<RateResturantScreen> {
                    width: 3, // border thickness
                  ),
                  image:const DecorationImage(
-                   image: AssetImage('images/rate_resturant.png'),
-                   fit: BoxFit.cover,
+                   image: AssetImage('images/rate_resturant.png' , ),
+                   fit: BoxFit.contain,
                  ),
                ),
              ),
@@ -65,8 +68,12 @@ class _RateResturantScreenState extends State<RateResturantScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ReuseBtn(title: 'Submit', ontap: (){} ),
-            ReuseBtn(title: 'Skip', ontap: (){} ,colors: Colors.white, ),
+              ReuseBtn(title: 'Submit', ontap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> VoucherPromoScreen()));
+              } ),
+            ReuseBtn(title: 'Skip', ontap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> RootScreen()));
+            } ,colors: Colors.white, ),
             ],
           ),
           const SizedBox(height: 30,)

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/Provider/theme_provider.dart';
 import 'package:food_app/View/onboarding_screens/onboardingtwo_screen.dart';
 import 'package:food_app/utils/textUtils.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,7 +22,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    final thememode = Provider.of<ThemeProvider>(context);
     return  Scaffold(
+      
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
