@@ -92,8 +92,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       const SizedBox(height: 12),
 
                       // Description
-                      const Text(
-                        "Most whole Alaskan Red King Crabs get broken down into legs, claws, and lump meat. "
+                       Text(productData['des'] ?? "Most whole Alaskan Red King Crabs get broken down into legs, claws, and lump meat. "
                         "We offer all of these options as well in our online shop, but there is nothing like getting the whole...",
                         style: TextStyle(color: Colors.black54),
                       ),

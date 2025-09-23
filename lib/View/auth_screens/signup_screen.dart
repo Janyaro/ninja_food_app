@@ -80,7 +80,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 children: [
                   InkWell(
                     onTap: (){
-
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        
+                       const  SnackBar(content: Text('FaceBook functionality is under working')));
                     },
                     child: Container(
                     padding:const EdgeInsets.all(8),

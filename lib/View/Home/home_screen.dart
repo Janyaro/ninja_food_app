@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                          SizedBox(
-                          width: 200.w,
+                          width: 180.w,
                           child:const Text(
                             'Special deal for October',
                             style: secondrybodyText,

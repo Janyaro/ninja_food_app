@@ -52,11 +52,17 @@ class _SigninScreenState extends State<SigninScreen> {
                 prefix_image: 'images/Message.png',
                 title: 'Email', controller: emailController),
                SizedBox(height: 10.w,),
-              ReuseTextform(
+             Consumer<ThemeProvider>(builder:(context, value,child){
+              return  ReuseTextform(
+                isVisibility: value.isVisibility,
                 prefix_image: 'images/Lock.png',
                 title: 'Password', 
                 controller: passwordController,
-                suffixiconbutton: IconButton(onPressed: (){}, icon: Icon(Icons.visibility)),),
+                suffixiconbutton: IconButton(onPressed: (){
+                  value.toogleVisibility();
+                }, icon: Icon(Icons.visibility)),);
+             }),
+             
                SizedBox(height: 10.w,),
             Row(
               children: [
@@ -75,11 +81,18 @@ class _SigninScreenState extends State<SigninScreen> {
             ),
           const Spacer(),
            ReuseBtn(title: 'Login' , ontap: (){
+            if(usernameController.text.isEmpty && emailController.text.isEmpty && passwordController.text.isEmpty){
+ScaffoldMessenger.of(context).showSnackBar(
+ const SnackBar(content: Text('Please Enter Fields')));
+            }
+            
+
             Navigator.push(
   context,
   MaterialPageRoute(
     builder: (_) => ChangeNotifierProvider.value(
       value: Provider.of<PaymentProvider>(context, listen: false),
+      
       child: BioScreen(
         username: usernameController.text,
         email: emailController.text,

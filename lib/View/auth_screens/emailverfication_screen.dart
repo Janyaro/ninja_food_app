@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/Services/auth_service.dart';
+import 'package:food_app/Services/data_services.dart';
 import 'package:food_app/utils/textUtils.dart';
 import 'package:food_app/widget/reuse_btn.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -35,7 +36,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       isLoading = false;
     });
   }
-
+final user = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,13 +56,16 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
               style: pageheadingText,
             ),
             const SizedBox(height: 10),
-            const SizedBox(
+            FutureBuilder(future: DataServices().getUserNumber(user.auth.currentUser!.uid), builder: (context , snapshot){
+              return  SizedBox(
               width: 280,
               child: Text(
                 textAlign: TextAlign.start,
                 'Code sent to +6282045****. This code will expire in 01:30',
               ),
-            ),
+            ); 
+            }),
+            
             const SizedBox(height: 20),
 
             PinCodeTextField(

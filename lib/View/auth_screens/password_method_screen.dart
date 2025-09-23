@@ -23,6 +23,7 @@ class _PasswordMethodScreenState extends State<PasswordMethodScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(automaticallyImplyLeading: true,),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
