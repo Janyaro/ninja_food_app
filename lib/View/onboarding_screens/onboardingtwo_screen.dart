@@ -19,36 +19,41 @@ class _OnboardingtwoScreenState extends State<OnboardingtwoScreen> {
       appBar: AppBar(actions: [IconButton(onPressed: (){
         thememode.toggleTheme();
       }, icon: thememode.isDarkMode ? const Icon(Icons.brightness_5_outlined) : const Icon(Icons.dark_mode)) ],),
-    body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.asset('images/Illustartion1.png'),
-       SizedBox(
-          width: 300.w,
-          child:const Text(
-            textAlign: TextAlign.center,
-            'Find your Comfort Food here',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold
+    body: SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            width: double.infinity,
+            height: 330,
+            'images/Illustartion1.png'),
+         SizedBox(
+            width: 300.w,
+            child:const Text(
+              textAlign: TextAlign.center,
+              'Find your Comfort Food here',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold
+              ),
             ),
           ),
-        ),
-         SizedBox(
-          width: 300.w,
-          child: Text(
-            textAlign: TextAlign.center,
-            'Here You Can find a chef or dish for every taste and color. Enjoy!',
-            style: TextStyle(color: Colors.grey ),
+           SizedBox(
+            width: 300.w,
+            child:const Text(
+              textAlign: TextAlign.center,
+              'Here You Can find a chef or dish for every taste and color. Enjoy!',
+              style: TextStyle(color: Colors.grey ),
+            ),
           ),
-        ),
-       const Spacer(),
-        ReuseBtn(title: 'Next',ontap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> OnboardingthreeScreen()));
-        },),
-        SizedBox(height: 30.w,)
-      ],
+         SizedBox(height: 20.h,),
+          ReuseBtn(title: 'Next',ontap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> const OnboardingthreeScreen()));
+          },),
+          SizedBox(height: 30.w,)
+        ],
+      ),
     ),
     );
   }

@@ -34,8 +34,8 @@ class CarousalCard extends StatelessWidget {
                   top: Radius.circular(12),
                 ),
                 child: Image.network(
-                   data['logoUrl'] != null ? data['logoUrl'] : data['imageUrl'] ,
-                  height: 80,
+                   data['bannerUrl']  ?? data['imageUrl'] ,
+                  height: 100,
                   width: double.infinity,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) =>

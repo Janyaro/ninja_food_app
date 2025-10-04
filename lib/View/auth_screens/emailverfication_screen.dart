@@ -47,50 +47,52 @@ final user = AuthService();
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 30),
-            const Text(
-              "Enter 4 digit verification code",
-              style: pageheadingText,
-            ),
-            const SizedBox(height: 10),
-            FutureBuilder(future: DataServices().getUserNumber(user.auth.currentUser!.uid), builder: (context , snapshot){
-              return  SizedBox(
-              width: 280,
-              child: Text(
-                textAlign: TextAlign.start,
-                'Code sent to +6282045****. This code will expire in 01:30',
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 30),
+              const Text(
+                "Enter 4 digit verification code",
+                style: pageheadingText,
               ),
-            ); 
-            }),
-            
-            const SizedBox(height: 20),
-
-            PinCodeTextField(
-              appContext: context,
-              length: 4,
-              keyboardType: TextInputType.number,
-              onChanged: (value) {
-                otpCode = value;
-              },
-            ),
-
-            const SizedBox(height: 20),
-            const Spacer(),
-
-            Center(
-              child: isLoading
-                  ? const CircularProgressIndicator()
-                  : ReuseBtn(
-                      title: 'Verify',
-                      ontap: verifyOtp,
-                    ),
-            ),
-
-            const SizedBox(height: 60),
-          ],
+              const SizedBox(height: 10),
+              FutureBuilder(future: DataServices().getUserNumber(user.auth.currentUser!.uid), builder: (context , snapshot){
+                return  SizedBox(
+                width: 280,
+                child: Text(
+                  textAlign: TextAlign.start,
+                  'Code sent to +6282045****. This code will expire in 01:30',
+                ),
+              ); 
+              }),
+              
+              const SizedBox(height: 20),
+          
+              PinCodeTextField(
+                appContext: context,
+                length: 4,
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  otpCode = value;
+                },
+              ),
+          
+              const SizedBox(height: 20),
+              const Spacer(),
+          
+              Center(
+                child: isLoading
+                    ? const CircularProgressIndicator()
+                    : ReuseBtn(
+                        title: 'Verify',
+                        ontap: verifyOtp,
+                      ),
+              ),
+          
+              const SizedBox(height: 60),
+            ],
+          ),
         ),
       ),
     );

@@ -24,45 +24,47 @@ class _BioScreenState extends State<BioScreen> {
       child:  Scaffold(
         appBar: AppBar(),
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal:10),
-          child: Column(
-            children: [
-              SizedBox(height: 10.h,),
-             const Text('Fill in your bio to get start' , style: pageheadingText,),
-              SizedBox(height: 10.h,),
-             const Text('This data will be displayed in your account profile for security',style: TextStyle(fontSize: 14 , color: Colors.grey),),
-              SizedBox(height: 20.h,),
-              ReuseTextform(title: 'First Name', controller: firstnameController), 
-             SizedBox(height: 15.h,),
-            ReuseTextform(title: 'Last Name', controller: lastnameController), 
-             SizedBox(height: 15.h,),
-            ReuseTextform(title: 'Phone Number', controller: phoneController), 
-            const  Spacer(),
-            ReuseBtn(
-  title: 'Next',
-  ontap: () {
-    final paymentProvider = Provider.of<PaymentProvider>(context, listen: false);
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => ChangeNotifierProvider.value(
-          value: paymentProvider,
-          child: PaymentmethodScreen(
-            username: widget.username,
-            email: widget.email,
-            password: widget.password,
-            firstname: firstnameController.text,
-            lastname: lastnameController.text,
-            phoneNumber: phoneController.text,
-          ),
-        ),
-      ),
-    );
-  },
-),
-            SizedBox(height: 20.h,)
-            ],
+          padding:const EdgeInsets.symmetric(horizontal:10),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 10.h,),
+               const Text('Fill in your bio to get start' , style: pageheadingText,),
+                SizedBox(height: 10.h,),
+               const Text('This data will be displayed in your account profile for security',style: TextStyle(fontSize: 14 , color: Colors.grey),),
+                SizedBox(height: 20.h,),
+                ReuseTextform(title: 'First Name', controller: firstnameController), 
+               SizedBox(height: 15.h,),
+              ReuseTextform(title: 'Last Name', controller: lastnameController), 
+               SizedBox(height: 15.h,),
+              ReuseTextform(title: 'Phone Number', controller: phoneController), 
+              SizedBox(height: 25.h,),
+              ReuseBtn(
+              title: 'Next',
+              ontap: () {
+                final paymentProvider = Provider.of<PaymentProvider>(context, listen: false);
+            
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ChangeNotifierProvider.value(
+            value: paymentProvider,
+            child: PaymentmethodScreen(
+              username: widget.username,
+              email: widget.email,
+              password: widget.password,
+              firstname: firstnameController.text,
+              lastname: lastnameController.text,
+              phoneNumber: phoneController.text,
+            ),
+                    ),
+                  ),
+                );
+              },
+            ),
+              SizedBox(height: 20.h,)
+              ],
+            ),
           ),
         ),
       ),

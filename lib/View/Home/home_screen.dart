@@ -186,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         padEnds: false,
                       ),
                       items: items.map((doc) {
-                        final data = doc.data() as Map<String, dynamic>;
+                        final data = doc.data();
                         return CarousalCard(
                           data: data,
                           onTap: () {
@@ -246,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: 4,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          final data = items[index].data() as Map<String, dynamic>;
+                          final data = items[index].data();
                           return InkWell(
                             onTap: (){
                               Navigator.push(context, MaterialPageRoute(builder: (context) => DetailMenuScreen(menuItem: MenuItem.fromJson(data))));

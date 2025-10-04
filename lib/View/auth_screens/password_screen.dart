@@ -73,7 +73,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 child: Text('Enter your new password below'),
               ),
               const SizedBox(height: 30),
-
+          
               ReuseTextform(
                 title: 'Password',
                 controller: passwordController,
@@ -82,9 +82,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
                   icon: const Icon(Icons.visibility),
                 ),
               ),
-
+          
               const SizedBox(height: 10),
-
+          
               ReuseTextform(
                 title: 'Confirm Password',
                 controller: confirmpasswordController,
@@ -93,16 +93,16 @@ class _PasswordScreenState extends State<PasswordScreen> {
                   icon: const Icon(Icons.visibility),
                 ),
               ),
-
+          
               const Spacer(),
-
+          
               Center(
                 child: ReuseBtn(
                   title: 'Reset Password',
                   ontap: resetPassword,
                 ),
               ),
-
+          
               const SizedBox(height: 30),
             ],
           ),

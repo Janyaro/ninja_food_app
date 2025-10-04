@@ -37,7 +37,7 @@ class _PasswordMethodScreenState extends State<PasswordMethodScreen> {
                 child: Text('Select which contact details should we use to reset your password'),
               ),
               const SizedBox(height: 20),
-
+          
               ListTile(
                 onTap: () {
                   setState(() {
@@ -50,7 +50,7 @@ class _PasswordMethodScreenState extends State<PasswordMethodScreen> {
                 selected: selectedMethod == "phone",
               ),
               const SizedBox(height: 10),
-
+          
               ListTile(
                 onTap: () {
                   setState(() {
@@ -62,9 +62,9 @@ class _PasswordMethodScreenState extends State<PasswordMethodScreen> {
                 subtitle: Text(email, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 selected: selectedMethod == "email",
               ),
-
+          
               const Spacer(),
-
+          
               Center(
                 child: ReuseBtn(
                   title: 'Next',
